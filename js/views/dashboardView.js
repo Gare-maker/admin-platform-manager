@@ -115,7 +115,7 @@ class DashboardView {
             <span class="stat-card-title">Active Listings</span>
             <div class="stat-card-icon">⚡</div>
           </div>
-          <div class="stat-card-value" style="color: #34d399;">${this.store.formatNumber(stats.activeListings)}</div>
+          <div class="stat-card-value" style="color: #065f46;">${this.store.formatNumber(stats.activeListings)}</div>
           <div class="stat-card-footer">
             <span class="stat-pill">Live Now</span>
             <span>Products & Properties</span>
@@ -141,9 +141,9 @@ class DashboardView {
             <span class="stat-card-title">Total Transacted Value</span>
             <div class="stat-card-icon">💰</div>
           </div>
-          <div class="stat-card-value" style="color: #38bdf8;">${this.store.formatNaira(stats.totalMoneyTransacted)}</div>
+          <div class="stat-card-value" style="color: #0f172a;">${this.store.formatNaira(stats.totalMoneyTransacted)}</div>
           <div class="stat-card-footer">
-            <span style="color: #38bdf8; font-weight: 700;">Gross Volume</span>
+            <span style="color: #1e40af; font-weight: 700;">Gross Volume</span>
             <span>All sales & rentals in period</span>
           </div>
         </div>
@@ -167,9 +167,9 @@ class DashboardView {
             <span class="stat-card-title">Monthly Revenue</span>
             <div class="stat-card-icon">📈</div>
           </div>
-          <div class="stat-card-value" style="color: #c084fc;">${this.store.formatNaira(stats.monthlyRevenue)}</div>
+          <div class="stat-card-value" style="color: #0f172a;">${this.store.formatNaira(stats.monthlyRevenue)}</div>
           <div class="stat-card-footer">
-            <span style="color: #c084fc; font-weight: 700;">Sep 2026</span>
+            <span style="color: #581c87; font-weight: 700;">Sep 2026</span>
             <span>Kova ${feePercent} commission</span>
           </div>
         </div>
@@ -180,9 +180,9 @@ class DashboardView {
             <span class="stat-card-title">Kova Profit (${feePercent})</span>
             <div class="stat-card-icon">✨</div>
           </div>
-          <div class="stat-card-value" style="color: #10b981;">${this.store.formatNaira(stats.kovaProfit)}</div>
+          <div class="stat-card-value" style="color: #064e3b;">${this.store.formatNaira(stats.kovaProfit)}</div>
           <div class="stat-card-footer">
-            <span style="color: #10b981; font-weight: 700;">Net Platform Fee</span>
+            <span style="color: #065f46; font-weight: 700;">Net Platform Fee</span>
             <span>Lifetime: ${this.store.formatNaira(stats.lifetimeKovaProfit)}</span>
           </div>
         </div>
@@ -190,7 +190,7 @@ class DashboardView {
 
       <!-- 3.8 SUBSCRIPTION OVERVIEW CARDS (Gold, Gray, Blue/Basic with % of Subscribed) -->
       <div style="margin-bottom: 24px;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
           <div>
             <h2 style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">Active Subscriptions Overview</h2>
             <p style="font-size: 0.78rem; color: var(--text-muted);">${stats.activeSubscriptions.total} total subscribed users across active plans. Click plan to view users.</p>
@@ -402,16 +402,16 @@ class DashboardView {
     return vendors.map((v, i) => {
       const subBadgeClass = v.subscription === 'Gold' ? 'sub-badge-gold' : (v.subscription === 'Gray' ? 'sub-badge-gray' : 'sub-badge-blue');
       return `
-        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); transition: all 0.15s; cursor: pointer;" onclick="window.userModal.open('${v.id}')">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="font-weight: 800; color: ${i === 0 ? '#fbbf24' : (i === 1 ? '#cbd5e1' : '#64748b')}; font-size: 0.95rem; width: 18px;">#${i + 1}</div>
-            <img src="${v.avatar}" alt="${v.name}" style="width: 36px; height: 36px; border-radius: var(--radius-full); object-fit: cover;" />
-            <div>
-              <div style="font-weight: 700; color: var(--text-main); font-size: 0.88rem;">${v.name}</div>
+        <div class="performer-row-card" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); transition: all 0.15s; cursor: pointer;" onclick="window.userModal.open('${v.id}')">
+          <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+            <div style="font-weight: 800; color: ${i === 0 ? '#b45309' : (i === 1 ? '#334155' : '#475569')}; font-size: 0.95rem; width: 20px; flex-shrink: 0;">#${i + 1}</div>
+            <img src="${v.avatar}" alt="${v.name}" style="width: 36px; height: 36px; border-radius: var(--radius-full); object-fit: cover; flex-shrink: 0;" />
+            <div style="min-width: 0;">
+              <div style="font-weight: 700; color: var(--text-main); font-size: 0.88rem; overflow: hidden; text-overflow: ellipsis;">${v.name}</div>
               <div style="font-size: 0.73rem; color: var(--text-muted);">${v.category} • ${v.activeListingsCount} active listings</div>
             </div>
           </div>
-          <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px;">
+          <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0;">
             <div class="price-tag">${this.store.formatNaira(v.totalTxValue)}</div>
             <div style="display: flex; align-items: center; gap: 6px;">
               <span class="rating-stars">★ ${v.rating}</span>
@@ -431,16 +431,16 @@ class DashboardView {
     return agents.map((a, i) => {
       const subBadgeClass = a.subscription === 'Gold' ? 'sub-badge-gold' : (a.subscription === 'Gray' ? 'sub-badge-gray' : 'sub-badge-blue');
       return `
-        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); transition: all 0.15s; cursor: pointer;" onclick="window.userModal.open('${a.id}')">
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <div style="font-weight: 800; color: ${i === 0 ? '#fbbf24' : (i === 1 ? '#cbd5e1' : '#64748b')}; font-size: 0.95rem; width: 18px;">#${i + 1}</div>
-            <img src="${a.avatar}" alt="${a.name}" style="width: 36px; height: 36px; border-radius: var(--radius-full); object-fit: cover;" />
-            <div>
-              <div style="font-weight: 700; color: var(--text-main); font-size: 0.88rem;">${a.name}</div>
+        <div class="performer-row-card" style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); transition: all 0.15s; cursor: pointer;" onclick="window.userModal.open('${a.id}')">
+          <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+            <div style="font-weight: 800; color: ${i === 0 ? '#b45309' : (i === 1 ? '#334155' : '#475569')}; font-size: 0.95rem; width: 20px; flex-shrink: 0;">#${i + 1}</div>
+            <img src="${a.avatar}" alt="${a.name}" style="width: 36px; height: 36px; border-radius: var(--radius-full); object-fit: cover; flex-shrink: 0;" />
+            <div style="min-width: 0;">
+              <div style="font-weight: 700; color: var(--text-main); font-size: 0.88rem; overflow: hidden; text-overflow: ellipsis;">${a.name}</div>
               <div style="font-size: 0.73rem; color: var(--text-muted);">${a.propertyListingsCount} properties • ${a.transactionsCount} rentals</div>
             </div>
           </div>
-          <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px;">
+          <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0;">
             <div class="price-tag">${this.store.formatNaira(a.totalTxValue)}</div>
             <div style="display: flex; align-items: center; gap: 6px;">
               <span class="rating-stars">★ ${a.rating}</span>
@@ -546,12 +546,20 @@ class DashboardView {
       return '<div class="empty-state"><p>No recent activity.</p></div>';
     }
 
+    const iconMap = {
+      'credit-card': '💳',
+      'user-plus': '👤',
+      'award': '👑',
+      'alert-triangle': '🚨'
+    };
+
     return activities.map(act => `
       <div style="display: flex; align-items: flex-start; gap: 10px; padding: 10px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); font-size: 0.8rem;">
-        <span style="font-size: 1.1rem; line-height: 1;">${act.icon || '📌'}</span>
-        <div style="flex: 1;">
-          <div style="color: var(--text-main); font-weight: 500; line-height: 1.3;">${act.text}</div>
-          <div style="font-size: 0.72rem; color: var(--text-subtle); margin-top: 2px;">${act.date}</div>
+        <span style="font-size: 1.1rem; line-height: 1; flex-shrink: 0;">${iconMap[act.icon] || '📌'}</span>
+        <div style="flex: 1; min-width: 0;">
+          <div style="color: var(--text-main); font-weight: 600; line-height: 1.3;">${act.title || act.text || 'Platform Event'}</div>
+          ${act.description ? `<div style="color: var(--text-muted); font-size: 0.76rem; line-height: 1.35; margin-top: 2px;">${act.description}</div>` : ''}
+          <div style="font-size: 0.72rem; color: var(--text-subtle); margin-top: 3px;">${act.date}</div>
         </div>
       </div>
     `).join('');

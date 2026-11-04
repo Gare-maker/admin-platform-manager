@@ -59,31 +59,31 @@ class ReportsView {
         <!-- New Reports -->
         <div class="stat-card" style="border-color: rgba(245, 158, 11, 0.4);">
           <div class="stat-card-top">
-            <span class="stat-card-title" style="color: #fbbf24;">New / Unreviewed</span>
-            <div class="stat-card-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⚠️</div>
+            <span class="stat-card-title" style="color: #92400e;">New / Unreviewed</span>
+            <div class="stat-card-icon" style="background: #fef3c7; color: #b45309; border-color: #fde68a;">⚠️</div>
           </div>
-          <div class="stat-card-value" style="color: #fbbf24;">${newCount}</div>
-          <div class="stat-card-footer"><span>Needs investigation</span></div>
+          <div class="stat-card-value" style="color: #0f172a;">${newCount}</div>
+          <div class="stat-card-footer"><span style="color: #92400e; font-weight: 600;">Needs investigation</span></div>
         </div>
 
         <!-- Under Review -->
-        <div class="stat-card" style="border-color: rgba(6, 182, 212, 0.4);">
+        <div class="stat-card" style="border-color: rgba(8, 145, 178, 0.4);">
           <div class="stat-card-top">
-            <span class="stat-card-title" style="color: #22d3ee;">Under Review</span>
-            <div class="stat-card-icon" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee;">🔍</div>
+            <span class="stat-card-title" style="color: #155e75;">Under Review</span>
+            <div class="stat-card-icon" style="background: #ecfeff; color: #0e7490; border-color: #a5f3fc;">🔍</div>
           </div>
-          <div class="stat-card-value" style="color: #22d3ee;">${reviewCount}</div>
-          <div class="stat-card-footer"><span>Admin case active</span></div>
+          <div class="stat-card-value" style="color: #0f172a;">${reviewCount}</div>
+          <div class="stat-card-footer"><span style="color: #155e75; font-weight: 600;">Admin case active</span></div>
         </div>
 
         <!-- Resolved -->
         <div class="stat-card">
           <div class="stat-card-top">
-            <span class="stat-card-title">Resolved</span>
-            <div class="stat-card-icon" style="color: #10b981;">✅</div>
+            <span class="stat-card-title" style="color: #065f46;">Resolved</span>
+            <div class="stat-card-icon" style="background: #ecfdf5; color: #059669; border-color: #a7f3d0;">✅</div>
           </div>
-          <div class="stat-card-value" style="color: #10b981;">${resolvedCount}</div>
-          <div class="stat-card-footer"><span>Action taken / closed</span></div>
+          <div class="stat-card-value" style="color: #0f172a;">${resolvedCount}</div>
+          <div class="stat-card-footer"><span style="color: #065f46; font-weight: 600;">Action taken / closed</span></div>
         </div>
 
         <!-- Dismissed -->
@@ -92,13 +92,13 @@ class ReportsView {
             <span class="stat-card-title">Dismissed</span>
             <div class="stat-card-icon">❌</div>
           </div>
-          <div class="stat-card-value" style="color: var(--text-subtle);">${dismissedCount}</div>
+          <div class="stat-card-value" style="color: #334155;">${dismissedCount}</div>
           <div class="stat-card-footer"><span>False claim / invalid</span></div>
         </div>
       </div>
 
       <!-- VIEW SUB-TABS (Reports vs Ratings Moderation) -->
-      <div style="display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">
+      <div class="reports-subtabs" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px;">
         <button class="btn ${this.currentSubTab === 'reports' ? 'btn-primary' : 'btn-outline'}" id="subtab-btn-reports">
           🛡️ Incident Reports (${allReports.length})
         </button>
@@ -277,7 +277,7 @@ class ReportsView {
 
           <!-- Report ID -->
           <td>
-            <div style="font-weight: 700; color: #f87171;">${r.id}</div>
+            <div style="font-weight: 700; color: #b91c1c;">${r.id}</div>
           </td>
 
           <!-- Reported User (With link to profile) -->
@@ -364,7 +364,7 @@ class ReportsView {
             ` : 'User'}
           </td>
           <td>
-            <div style="font-size: 0.8rem; color: #e2e8f0; max-width: 360px;">"${r.review}"</div>
+            <div style="font-size: 0.8rem; color: var(--text-main); max-width: 360px;">"${r.review}"</div>
           </td>
           <td><span style="font-size: 0.75rem; color: var(--text-subtle);">${r.date}</span></td>
           <td>

@@ -689,8 +689,8 @@
 
 .fee-tag {
   font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--kova-emerald);
+  font-weight: 700;
+  color: #047857;
 }
 
 .rating-stars {
@@ -698,7 +698,7 @@
   align-items: center;
   gap: 4px;
   font-weight: 700;
-  color: #fbbf24;
+  color: #b45309;
 }
 
 /* --------------------------------------------------------------------------
@@ -955,12 +955,100 @@
   padding: 20px 24px;
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 12px;
   background: #ffffff;
   position: sticky;
   top: 0;
   z-index: 10;
+}
+
+.drawer-header .btn-close-drawer {
+  flex-shrink: 0;
+}
+
+.user-drawer-header-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-drawer-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-drawer-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.user-drawer-badges {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.user-drawer-contact-row {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  word-break: break-word;
+}
+
+.user-drawer-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.user-drawer-stat-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  text-align: center;
+}
+
+.user-listing-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  gap: 12px;
+}
+
+.user-listing-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.user-listing-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.two-party-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
 }
 
 .drawer-body {
@@ -974,6 +1062,12 @@
   margin-bottom: 20px;
   gap: 8px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.drawer-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .drawer-tab {
@@ -983,6 +1077,7 @@
   color: var(--text-muted);
   border-bottom: 2px solid transparent;
   white-space: nowrap;
+  flex-shrink: 0;
   transition: all var(--trans-fast);
 }
 

@@ -109,7 +109,13 @@
   }
 
   .topbar {
-    padding: 0 16px;
+    padding: 0 14px;
+    gap: 10px;
+  }
+
+  .topbar-left {
+    max-width: none;
+    gap: 10px;
   }
 
   .topbar-date-pill {
@@ -137,8 +143,10 @@
   }
 
   .drawer-content {
-    width: 100%;
-    max-width: 100%;
+    width: 100% !important;
+    max-width: 100% !important;
+    right: 0 !important;
+    left: 0 !important;
     border-radius: 0;
   }
 }
@@ -147,13 +155,21 @@
    5. PHABLETS & LARGE MOBILE (max-width: 680px)
    -------------------------------------------------------------------------- */
 @media (max-width: 680px) {
+  .topbar {
+    height: 60px;
+    min-height: 60px;
+    padding: 0 12px;
+    gap: 8px;
+  }
+
   .topbar-left {
-    max-width: 260px;
+    max-width: none;
+    gap: 8px;
   }
 
   .global-search-trigger {
     padding: 7px 10px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   .global-search-trigger kbd {
@@ -166,9 +182,14 @@
     text-overflow: ellipsis;
   }
 
+  .topbar-right {
+    gap: 8px;
+  }
+
   .platform-pill {
     padding: 5px 9px;
-    font-size: 0.74rem;
+    font-size: 0.72rem;
+    gap: 6px;
   }
 
   .stat-grid {
@@ -179,6 +200,18 @@
   .reports-stat-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+  }
+
+  .two-party-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Unpin sticky table columns on mobile so full table scrolls comfortably */
+  .data-table th.sticky-col,
+  .data-table td.sticky-col {
+    position: static;
+    box-shadow: none;
   }
 
   .card-header {
@@ -223,10 +256,94 @@
     width: 100%;
   }
 
+  /* User Profile Drawer Mobile Adjustments */
+  .drawer-header {
+    padding: 14px 16px;
+  }
+
+  .drawer-body {
+    padding: 16px;
+  }
+
+  .user-drawer-header-main {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .user-drawer-avatar-img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  #user-drawer-name {
+    font-size: 1.08rem !important;
+    line-height: 1.25;
+  }
+
+  .user-drawer-contact-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .user-drawer-contact-row .contact-sep {
+    display: none;
+  }
+
+  .user-drawer-action-card {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding: 12px 14px !important;
+  }
+
+  .user-drawer-action-card > button,
+  .user-drawer-action-card > select {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .user-drawer-mod-actions {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+  }
+
+  .user-drawer-mod-actions .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .user-drawer-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .user-drawer-stats-grid .user-drawer-stat-box:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .user-listing-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .user-listing-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 8px;
+  }
+
   .modal-dialog {
     width: 95%;
     max-width: 95%;
-    padding: 18px;
+    padding: 18px 16px;
     margin: 12px auto;
   }
 
@@ -237,19 +354,22 @@
   .toast-container {
     left: 12px;
     right: 12px;
+    top: auto;
     bottom: 12px;
     max-width: unset;
   }
 
   .toast {
     width: 100%;
+    min-width: 0;
+    max-width: none;
   }
 }
 
 /* --------------------------------------------------------------------------
-   6. SMALL PHONES (max-width: 440px)
+   6. SMALL PHONES (max-width: 480px)
    -------------------------------------------------------------------------- */
-@media (max-width: 440px) {
+@media (max-width: 480px) {
   .stat-grid {
     grid-template-columns: 1fr;
   }
@@ -267,7 +387,7 @@
   }
 
   .page-title-group h1 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
   }
 
   .page-title-group p {
@@ -280,37 +400,35 @@
     justify-content: center;
   }
 
+  .reports-subtabs .btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+
   .filter-bar .select-custom {
     flex: 1 1 100%;
     width: 100%;
   }
 
   .dashboard-card {
-    padding: 16px;
+    padding: 14px;
     border-radius: var(--radius-md);
   }
 
   .chart-container {
-    padding: 16px 12px;
-  }
-
-  .drawer-header {
-    padding: 16px;
-  }
-
-  .drawer-body {
-    padding: 16px;
+    padding: 14px 12px;
   }
 
   .drawer-tabs {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 0 12px;
+    margin-left: -4px;
+    margin-right: -4px;
+    padding: 0 4px;
+    gap: 4px;
   }
 
   .drawer-tab {
-    padding: 8px 12px;
-    font-size: 0.8rem;
+    padding: 8px 10px;
+    font-size: 0.78rem;
     white-space: nowrap;
     flex-shrink: 0;
   }
@@ -319,5 +437,14 @@
   .data-table td {
     padding: 10px 12px;
     font-size: 0.78rem;
+  }
+
+  .login-card {
+    padding: 24px 18px;
+  }
+
+  .modal-form-actions .btn {
+    flex: 1;
+    justify-content: center;
   }
 }

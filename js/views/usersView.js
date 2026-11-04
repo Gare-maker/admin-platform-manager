@@ -51,18 +51,18 @@ class UsersView {
           </div>
           <div style="display: grid; gap: 8px;">
             ${topVendors.map((v, i) => `
-              <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); cursor: pointer;" onclick="window.userModal.open('${v.id}')">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-weight: 800; font-size: 0.82rem; color: #fbbf24;">#${i + 1}</span>
-                  <img src="${v.avatar}" style="width: 28px; height: 28px; border-radius: var(--radius-full); object-fit: cover;" />
-                  <div>
-                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.82rem;">${v.name}</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 8px 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); cursor: pointer;" onclick="window.userModal.open('${v.id}')">
+                <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
+                  <span style="font-weight: 800; font-size: 0.82rem; color: #b45309; flex-shrink: 0;">#${i + 1}</span>
+                  <img src="${v.avatar}" style="width: 28px; height: 28px; border-radius: var(--radius-full); object-fit: cover; flex-shrink: 0;" />
+                  <div style="min-width: 0;">
+                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.82rem; overflow: hidden; text-overflow: ellipsis;">${v.name}</div>
                     <div style="font-size: 0.7rem; color: var(--text-muted);">${v.category}</div>
                   </div>
                 </div>
-                <div style="text-align: right;">
+                <div style="text-align: right; flex-shrink: 0;">
                   <div class="price-tag" style="font-size: 0.82rem;">${this.store.formatNaira(v.totalTxValue)}</div>
-                  <div style="font-size: 0.7rem; color: var(--kova-emerald);">${v.transactionsCount} sales</div>
+                  <div style="font-size: 0.7rem; color: #047857; font-weight: 600;">${v.transactionsCount} sales</div>
                 </div>
               </div>
             `).join('')}
@@ -79,18 +79,18 @@ class UsersView {
           </div>
           <div style="display: grid; gap: 8px;">
             ${topAgents.map((a, i) => `
-              <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); cursor: pointer;" onclick="window.userModal.open('${a.id}')">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span style="font-weight: 800; font-size: 0.82rem; color: #7e22ce;">#${i + 1}</span>
-                  <img src="${a.avatar}" style="width: 28px; height: 28px; border-radius: var(--radius-full); object-fit: cover;" />
-                  <div>
-                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.82rem;">${a.name}</div>
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 8px 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); cursor: pointer;" onclick="window.userModal.open('${a.id}')">
+                <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
+                  <span style="font-weight: 800; font-size: 0.82rem; color: #6b21a8; flex-shrink: 0;">#${i + 1}</span>
+                  <img src="${a.avatar}" style="width: 28px; height: 28px; border-radius: var(--radius-full); object-fit: cover; flex-shrink: 0;" />
+                  <div style="min-width: 0;">
+                    <div style="font-weight: 600; color: var(--text-main); font-size: 0.82rem; overflow: hidden; text-overflow: ellipsis;">${a.name}</div>
                     <div style="font-size: 0.7rem; color: var(--text-muted);">${a.propertyListingsCount} listings</div>
                   </div>
                 </div>
-                <div style="text-align: right;">
+                <div style="text-align: right; flex-shrink: 0;">
                   <div class="price-tag" style="font-size: 0.82rem;">${this.store.formatNaira(a.totalTxValue)}</div>
-                  <div style="font-size: 0.7rem; color: #c084fc;">${a.transactionsCount} rentals</div>
+                  <div style="font-size: 0.7rem; color: #6b21a8; font-weight: 600;">${a.transactionsCount} rentals</div>
                 </div>
               </div>
             `).join('')}

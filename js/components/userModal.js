@@ -121,16 +121,16 @@ class UserModal {
     if (moderationCard) {
       const statusLower = user.accountStatus.toLowerCase();
       moderationCard.innerHTML = `
-        <div>
+        <div style="min-width: 0; flex: 1;">
           <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 4px;">Account Access & Moderation</div>
-          <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <span class="status-badge status-${statusLower}">${user.accountStatus}</span>
             <span style="font-size: 0.75rem; color: var(--text-muted);">
               ${user.accountStatus === 'Active' ? 'Full platform access enabled' : (user.accountStatus === 'Suspended' ? 'Account & listings temporarily suspended' : 'Account permanently blocked from platform')}
             </span>
           </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="user-drawer-mod-actions" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
           ${user.accountStatus !== 'Active' ? `
             <button class="btn btn-success btn-sm" onclick="window.app.setUserStatus('${user.id}', 'Active')">
               ✓ Activate User
@@ -237,22 +237,24 @@ class UserModal {
     listings.forEach(l => {
       const typeLabel = l.listingType === 'property' ? '🏠 Property' : '🛍️ Product';
       html += `
-        <div style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px 14px; gap: 12px;">
-          <img src="${l.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100'}" alt="${l.name}" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border-subtle); flex-shrink: 0;" />
-          <div style="flex: 1; min-width: 0;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${l.name}</span>
-              <span class="status-badge status-${l.status.toLowerCase()}">${l.status}</span>
-            </div>
-            <div style="font-size: 0.76rem; color: var(--text-muted); display: flex; gap: 10px; margin-top: 2px;">
-              <span>${typeLabel}</span>
-              <span>•</span>
-              <span>${l.category}</span>
-              <span>•</span>
-              <span>Created ${l.dateCreated}</span>
+        <div class="user-listing-card">
+          <div class="user-listing-main">
+            <img src="${l.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100'}" alt="${l.name}" style="width: 48px; height: 48px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border-subtle); flex-shrink: 0;" />
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="font-weight: 600; color: var(--text-main); word-break: break-word;">${l.name}</span>
+                <span class="status-badge status-${l.status.toLowerCase()}">${l.status}</span>
+              </div>
+              <div style="font-size: 0.76rem; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px;">
+                <span>${typeLabel}</span>
+                <span>•</span>
+                <span>${l.category}</span>
+                <span>•</span>
+                <span>Created ${l.dateCreated}</span>
+              </div>
             </div>
           </div>
-          <div style="text-align: right; flex-shrink: 0;">
+          <div class="user-listing-price">
             <div class="price-tag">${this.store.formatNaira(l.price)}</div>
             <div style="font-size: 0.72rem; color: var(--text-subtle);">${l.views || 0} views • ${l.transactionsCount || 0} orders</div>
           </div>
@@ -357,20 +359,20 @@ class UserModal {
 
       html += `
         <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <img src="${r.reviewerAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80'}" alt="${r.reviewerName}" style="width: 30px; height: 30px; border-radius: var(--radius-full); object-fit: cover;" />
+              <img src="${r.reviewerAvatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80'}" alt="${r.reviewerName}" style="width: 30px; height: 30px; border-radius: var(--radius-full); object-fit: cover; flex-shrink: 0;" />
               <div>
                 <span style="font-weight: 600; color: var(--text-main); font-size: 0.85rem;">${r.reviewerName}</span>
                 <span style="font-size: 0.72rem; color: var(--text-subtle); margin-left: 6px;">(${r.reviewerType})</span>
               </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span class="rating-stars">${stars} <span style="font-size: 0.82rem; color: var(--text-main);">${r.score.toFixed(1)}</span></span>
               <span style="font-size: 0.72rem; color: var(--text-subtle);">${r.date}</span>
             </div>
           </div>
-          <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.4; background: #ffffff; border: 1px solid var(--border-subtle); padding: 8px 12px; border-radius: var(--radius-sm);">"${r.review}"</p>
+          <p style="font-size: 0.84rem; color: var(--text-main); line-height: 1.4; background: #ffffff; border: 1px solid var(--border-subtle); padding: 8px 12px; border-radius: var(--radius-sm);">"${r.review}"</p>
         </div>
       `;
     });
@@ -396,8 +398,8 @@ class UserModal {
     reports.forEach(r => {
       html += `
         <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span style="font-weight: 700; color: #dc2626; font-size: 0.82rem;">${r.id}</span>
               <span class="status-badge status-${r.status.toLowerCase()}">${r.status}</span>
               <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Category: ${r.category}</span>
@@ -405,7 +407,7 @@ class UserModal {
             <span style="font-size: 0.72rem; color: var(--text-subtle);">${r.date}</span>
           </div>
           <p style="font-size: 0.84rem; color: var(--text-main); line-height: 1.4;">${r.content}</p>
-          <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 8px; margin-top: 4px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--border-subtle); padding-top: 8px; margin-top: 4px;">
             <span style="font-size: 0.75rem; color: var(--text-muted);">Reported by: <strong style="color: var(--text-main);">${r.reporterName}</strong></span>
             <button class="btn btn-secondary btn-sm" onclick="window.reportModal.open('${r.id}')">Open Report Details</button>
           </div>
@@ -440,8 +442,8 @@ class UserModal {
       html += `
         <div style="position: relative;">
           <div style="position: absolute; left: -26px; top: 3px; width: 10px; height: 10px; border-radius: var(--radius-full); background: var(--kova-emerald); box-shadow: 0 0 8px var(--kova-emerald);"></div>
-          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-            <div style="display: flex; align-items: center; gap: 8px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 4px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span class="sub-badge ${prevBadgeClass}">${h.previousSubscription}</span>
               <span style="color: var(--text-subtle);">➔</span>
               <span class="sub-badge ${newBadgeClass}">${h.newSubscription}</span>

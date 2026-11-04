@@ -170,17 +170,21 @@
   <div id="drawer-user-profile" class="drawer-container">
     <div class="drawer-content">
       <!-- Drawer Header -->
-      <div class="drawer-header">
-        <div style="display: flex; align-items: center; gap: 14px;">
-          <img id="user-drawer-avatar" src="" class="entity-avatar" style="width: 52px; height: 52px; border: 2px solid var(--kova-emerald);" />
-          <div>
-            <div style="display: flex; align-items: center; gap: 8px;">
+      <div class="drawer-header user-drawer-header">
+        <div class="user-drawer-header-main">
+          <img id="user-drawer-avatar" src="" class="entity-avatar user-drawer-avatar-img" style="width: 52px; height: 52px; border: 2px solid var(--kova-emerald);" />
+          <div class="user-drawer-header-info">
+            <div class="user-drawer-title-row">
               <h2 id="user-drawer-name" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">User Name</h2>
-              <span id="user-drawer-type" class="type-badge">type</span>
-              <span id="user-drawer-status" class="status-badge">active</span>
+              <div class="user-drawer-badges">
+                <span id="user-drawer-type" class="type-badge">type</span>
+                <span id="user-drawer-status" class="status-badge">active</span>
+              </div>
             </div>
-            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
-              <span id="user-drawer-email"></span> • <span id="user-drawer-phone"></span>
+            <div class="user-drawer-contact-row">
+              <span id="user-drawer-email"></span>
+              <span class="contact-sep">•</span>
+              <span id="user-drawer-phone"></span>
             </div>
           </div>
         </div>
@@ -189,10 +193,10 @@
 
       <div class="drawer-body">
         <!-- Subscription Summary Card inside profile -->
-        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div class="user-drawer-action-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
           <div>
             <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 4px;">Assigned Subscription Plan</div>
-            <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
               <span id="user-drawer-subbadge" class="sub-badge sub-badge-gold">GOLD</span>
               <span id="user-drawer-subassigned" style="font-size: 0.75rem; color: var(--text-muted);">Assigned on 2026-01-15</span>
             </div>
@@ -203,28 +207,28 @@
         </div>
 
         <!-- Account Moderation & Status Control -->
-        <div id="user-drawer-moderation-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div id="user-drawer-moderation-card" class="user-drawer-action-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
         </div>
 
         <!-- Marketplace Statistics Grid (PRD 4.8) -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 24px;">
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+        <div class="user-drawer-stats-grid">
+          <div class="user-drawer-stat-box">
             <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Listings</div>
             <div id="u-stat-listings" style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">0</div>
           </div>
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+          <div class="user-drawer-stat-box">
             <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Completed Tx</div>
             <div id="u-stat-tx-count" style="font-size: 1.1rem; font-weight: 800; color: #059669;">0</div>
           </div>
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+          <div class="user-drawer-stat-box">
             <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Total Transacted</div>
             <div id="u-stat-tx-value" style="font-size: 1.05rem; font-weight: 800; color: #0284c7;">₦0</div>
           </div>
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+          <div class="user-drawer-stat-box">
             <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Rating</div>
             <div id="u-stat-rating" style="font-size: 1.1rem; font-weight: 800; color: #d97706;">0.0 ★</div>
           </div>
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+          <div class="user-drawer-stat-box">
             <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Reports Against</div>
             <div id="u-stat-reports" style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">0</div>
           </div>
@@ -254,11 +258,11 @@
       </div>
 
       <!-- User target preview -->
-      <div style="display: flex; align-items: center; gap: 12px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; margin-bottom: 20px;">
-        <img id="sub-modal-useravatar" src="" style="width: 42px; height: 42px; border-radius: var(--radius-full); object-fit: cover;" />
-        <div style="flex: 1;">
+      <div class="sub-modal-user-preview" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; margin-bottom: 20px;">
+        <img id="sub-modal-useravatar" src="" style="width: 42px; height: 42px; border-radius: var(--radius-full); object-fit: cover; flex-shrink: 0;" />
+        <div style="flex: 1; min-width: 140px;">
           <div id="sub-modal-username" style="font-weight: 700; color: var(--text-main); font-size: 0.95rem;">User Name</div>
-          <div id="sub-modal-useremail" style="font-size: 0.75rem; color: var(--text-muted);">user@example.com</div>
+          <div id="sub-modal-useremail" style="font-size: 0.75rem; color: var(--text-muted); word-break: break-word;">user@example.com</div>
         </div>
         <div style="text-align: right;">
           <div style="font-size: 0.7rem; color: var(--text-subtle); margin-bottom: 2px;">Current Plan</div>
@@ -281,7 +285,7 @@
           <input type="text" id="sub-change-reason" class="search-input" style="padding-left: 12px;" placeholder="e.g. Upgraded to Gold following yearly vendor agreement" required />
         </div>
 
-        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px;">
+        <div class="modal-form-actions" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; flex-wrap: wrap;">
           <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
           <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
@@ -293,8 +297,8 @@
   <div id="drawer-report-details" class="drawer-container">
     <div class="drawer-content">
       <div class="drawer-header">
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
+        <div style="min-width: 0; flex: 1;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <h2 id="report-drawer-id" style="font-size: 1.15rem; font-weight: 800; color: #dc2626;">Report ID</h2>
             <span id="report-drawer-statusbadge" class="status-badge">New</span>
           </div>
@@ -307,7 +311,7 @@
 
       <div class="drawer-body">
         <!-- Status Updater Control (PRD 5.4) -->
-        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+        <div class="user-drawer-action-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
           <div>
             <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle);">Case Status</div>
             <div style="font-size: 0.8rem; color: var(--text-muted);">Change moderation review state</div>
@@ -321,7 +325,7 @@
         </div>
 
         <!-- Two-Party Profile Cards: Reporter & Reported User (PRD 5.3) -->
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
+        <div class="two-party-grid" style="margin-bottom: 20px;">
           <!-- Reporter Card -->
           <div id="report-card-reporter" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px;"></div>
 
@@ -344,9 +348,9 @@
   <!-- 4. TRANSACTION DETAILS MODAL (PRD 3.3) -->
   <div id="modal-transaction-details" class="modal-overlay">
     <div class="modal-dialog">
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
-        <div>
-          <div style="display: flex; align-items: center; gap: 8px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; gap: 10px;">
+        <div style="min-width: 0; flex: 1;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <h3 id="tx-modal-id" style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Transaction ID</h3>
             <span id="tx-modal-statusbadge" class="status-badge">Completed</span>
           </div>
@@ -364,15 +368,15 @@
       <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
         <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 8px;">Financial Settlement Breakdown</div>
         <div style="display: grid; gap: 6px; font-size: 0.84rem;">
-          <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
             <span style="color: var(--text-muted);">Gross Transaction Value:</span>
             <span id="tx-modal-amount" class="price-tag">₦0</span>
           </div>
-          <div style="display: flex; justify-content: space-between;">
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
             <span style="color: var(--kova-emerald); font-weight: 600;">Kova Platform Commission:</span>
             <span id="tx-modal-fee" class="fee-tag">₦0</span>
           </div>
-          <div style="border-top: 1px solid var(--border-subtle); padding-top: 6px; margin-top: 4px; display: flex; justify-content: space-between;">
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 6px; margin-top: 4px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px;">
             <span style="color: var(--text-main); font-weight: 700;">Net Seller Payout:</span>
             <span id="tx-modal-net" style="font-weight: 700; color: var(--text-main);">₦0</span>
           </div>
@@ -380,7 +384,7 @@
       </div>
 
       <!-- Buyer & Seller Profiles -->
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+      <div class="two-party-grid" style="margin-bottom: 16px;">
         <div id="tx-card-buyer" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;"></div>
         <div id="tx-card-seller" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;"></div>
       </div>
