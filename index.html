@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KOVA Admin Dashboard - Marketplace Management & Oversight</title>
+  <meta name="description" content="Kova Admin Dashboard - Internal web management system for monitoring platform listings, transactions, users, subscriptions, revenue, and reports.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Mobile Backdrop Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- ====================================================================
+         SIDEBAR NAVIGATION
+         ==================================================================== -->
+    <aside class="sidebar">
+      <!-- Sidebar Header & Logo -->
+      <div class="sidebar-header">
+        <a href="#dashboard" class="sidebar-logo-link" title="KOVA Admin">
+          <img src="assets/images/kova_logo.png" alt="Kova Logo" class="sidebar-logo" onerror="this.src='assets/images/kova_logo.svg'" />
+        </a>
+        <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="Close navigation menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links (PRD 6: Dashboard, Users, Reports) -->
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Core Management</div>
+
+        <a href="#dashboard" class="nav-item active" data-page="dashboard" id="nav-link-dashboard">
+          <span class="nav-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9"></rect>
+              <rect x="14" y="3" width="7" height="5"></rect>
+              <rect x="14" y="12" width="7" height="9"></rect>
+              <rect x="3" y="16" width="7" height="5"></rect>
+            </svg>
+          </span>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="#users" class="nav-item" data-page="users" id="nav-link-users">
+          <span class="nav-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span>Users</span>
+        </a>
+
+        <a href="#reports" class="nav-item" data-page="reports" id="nav-link-reports">
+          <span class="nav-item-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </span>
+          <span>Reports</span>
+          <span class="nav-badge" id="sidebar-reports-badge" style="display: none;">0</span>
+        </a>
+
+        <div class="nav-section-title" style="margin-top: 20px;">Platform Quick-Tools</div>
+
+        <button class="nav-item global-search-trigger" style="text-align: left; width: 100%;">
+          <span class="nav-item-icon">🔍</span>
+          <span>Search Anything</span>
+          <kbd>Ctrl+K</kbd>
+        </button>
+
+        <button class="nav-item" style="text-align: left; width: 100%;" onclick="window.app.openFeeSettings()">
+          <span class="nav-item-icon">⚙️</span>
+          <span>Platform Fee Settings</span>
+        </button>
+      </nav>
+
+      <!-- Sidebar Footer / Admin Profile (PRD 6) -->
+      <div class="sidebar-footer">
+        <div class="admin-card">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120&auto=format&fit=crop&q=80" alt="Admin Avatar" class="admin-avatar" />
+          <div class="admin-info">
+            <span class="admin-name">Adebayo Johnson</span>
+            <span class="admin-role">Super Administrator</span>
+          </div>
+        </div>
+        <div class="sidebar-actions">
+          <button class="btn-sidebar-action logout" onclick="window.app.logout()" title="Safely sign out of admin session">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Logout
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         MAIN APP CONTENT AREA
+         ==================================================================== -->
+    <main class="main-wrapper">
+      <!-- Top Navbar (PRD 7: Global Search & Shortcuts) -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <button class="global-search-trigger" id="topbar-search-trigger" aria-label="Global Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <span>Search users, products, properties, transactions, reports...</span>
+            <kbd>Ctrl+K</kbd>
+          </button>
+        </div>
+
+        <div class="topbar-right">
+          <div class="platform-pill" onclick="window.app.openFeeSettings()" title="Configurable platform fee rate">
+            <span class="live-indicator-dot"></span>
+            <span>Fee: 4.9%</span>
+          </div>
+
+          <div class="topbar-date-pill">
+            <span>Platform Date:</span>
+            <strong style="color: var(--text-main);">16 Sep 2026</strong>
+          </div>
+
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=120" alt="Admin Avatar" class="admin-avatar" style="width: 32px; height: 32px; cursor: pointer;" title="Adebayo Johnson" />
+        </div>
+      </header>
+
+      <!-- PAGE 1: DASHBOARD VIEW -->
+      <section id="view-dashboard" class="view-container active"></section>
+
+      <!-- PAGE 2: USERS VIEW -->
+      <section id="view-users" class="view-container"></section>
+
+      <!-- PAGE 3: REPORTS VIEW -->
+      <section id="view-reports" class="view-container"></section>
+    </main>
+  </div>
+
+  <!-- ====================================================================
+       REUSABLE MODALS & DRAWERS
+       ==================================================================== -->
+
+  <!-- 1. USER PROFILE SLIDE-OVER DRAWER (PRD 4.8) -->
+  <div id="drawer-user-profile" class="drawer-container">
+    <div class="drawer-content">
+      <!-- Drawer Header -->
+      <div class="drawer-header">
+        <div style="display: flex; align-items: center; gap: 14px;">
+          <img id="user-drawer-avatar" src="" class="entity-avatar" style="width: 52px; height: 52px; border: 2px solid var(--kova-emerald);" />
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <h2 id="user-drawer-name" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">User Name</h2>
+              <span id="user-drawer-type" class="type-badge">type</span>
+              <span id="user-drawer-status" class="status-badge">active</span>
+            </div>
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
+              <span id="user-drawer-email"></span> • <span id="user-drawer-phone"></span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-icon btn-outline btn-close-drawer" aria-label="Close Drawer">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Subscription Summary Card inside profile -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 4px;">Assigned Subscription Plan</div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span id="user-drawer-subbadge" class="sub-badge sub-badge-gold">GOLD</span>
+              <span id="user-drawer-subassigned" style="font-size: 0.75rem; color: var(--text-muted);">Assigned on 2026-01-15</span>
+            </div>
+          </div>
+          <button id="btn-open-change-sub" class="btn btn-primary btn-sm">
+            Change Subscription
+          </button>
+        </div>
+
+        <!-- Account Moderation & Status Control -->
+        <div id="user-drawer-moderation-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        </div>
+
+        <!-- Marketplace Statistics Grid (PRD 4.8) -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 24px;">
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+            <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Listings</div>
+            <div id="u-stat-listings" style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">0</div>
+          </div>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+            <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Completed Tx</div>
+            <div id="u-stat-tx-count" style="font-size: 1.1rem; font-weight: 800; color: #059669;">0</div>
+          </div>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+            <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Total Transacted</div>
+            <div id="u-stat-tx-value" style="font-size: 1.05rem; font-weight: 800; color: #0284c7;">₦0</div>
+          </div>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+            <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Rating</div>
+            <div id="u-stat-rating" style="font-size: 1.1rem; font-weight: 800; color: #d97706;">0.0 ★</div>
+          </div>
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px; text-align: center;">
+            <div style="font-size: 0.68rem; color: var(--text-subtle); text-transform: uppercase;">Reports Against</div>
+            <div id="u-stat-reports" style="font-size: 1.1rem; font-weight: 800; color: var(--text-main);">0</div>
+          </div>
+        </div>
+
+        <!-- Relational Drawer Tabs (PRD 4.8) -->
+        <div class="drawer-tabs">
+          <button class="drawer-tab active" data-tab="listings">Listings</button>
+          <button class="drawer-tab" data-tab="transactions">Transactions</button>
+          <button class="drawer-tab" data-tab="ratings">Ratings</button>
+          <button class="drawer-tab" data-tab="reports">Reports</button>
+          <button class="drawer-tab" data-tab="history">Sub History</button>
+        </div>
+
+        <!-- Dynamic Tab Pane Container -->
+        <div id="user-drawer-tab-pane"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. SUBSCRIPTION ASSIGNMENT MODAL (PRD 4.5) -->
+  <div id="modal-change-subscription" class="modal-overlay">
+    <div class="modal-dialog">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Assign / Change Subscription</h3>
+        <button class="btn btn-icon btn-outline btn-close-modal">✕</button>
+      </div>
+
+      <!-- User target preview -->
+      <div style="display: flex; align-items: center; gap: 12px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; margin-bottom: 20px;">
+        <img id="sub-modal-useravatar" src="" style="width: 42px; height: 42px; border-radius: var(--radius-full); object-fit: cover;" />
+        <div style="flex: 1;">
+          <div id="sub-modal-username" style="font-weight: 700; color: var(--text-main); font-size: 0.95rem;">User Name</div>
+          <div id="sub-modal-useremail" style="font-size: 0.75rem; color: var(--text-muted);">user@example.com</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.7rem; color: var(--text-subtle); margin-bottom: 2px;">Current Plan</div>
+          <span id="sub-modal-currentbadge" class="sub-badge">Gold</span>
+        </div>
+      </div>
+
+      <form id="form-change-subscription" style="display: grid; gap: 16px;">
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">Select New Subscription Plan</label>
+          <select id="sub-select-plan" class="select-custom" style="width: 100%;">
+            <option value="Gold">Gold Plan (👑 Top Tier Features & Priority Visibility)</option>
+            <option value="Gray">Gray Plan (🛡️ Standard Tier Verified Vendor/Agent)</option>
+            <option value="Blue / Basic">Blue / Basic (⭐ Free / Entry Tier)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">Reason for Change / Admin Audit Note</label>
+          <input type="text" id="sub-change-reason" class="search-input" style="padding-left: 12px;" placeholder="e.g. Upgraded to Gold following yearly vendor agreement" required />
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px;">
+          <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. REPORT DETAILS DRAWER (PRD 5.3) -->
+  <div id="drawer-report-details" class="drawer-container">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h2 id="report-drawer-id" style="font-size: 1.15rem; font-weight: 800; color: #dc2626;">Report ID</h2>
+            <span id="report-drawer-statusbadge" class="status-badge">New</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
+            <span id="report-drawer-category" style="font-weight: 600; color: var(--text-main);"></span> • <span id="report-drawer-date"></span>
+          </div>
+        </div>
+        <button class="btn btn-icon btn-outline btn-close-drawer">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <!-- Status Updater Control (PRD 5.4) -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle);">Case Status</div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Change moderation review state</div>
+          </div>
+          <select id="report-status-updater" class="select-custom">
+            <option value="New">New</option>
+            <option value="Under Review">Under Review</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Dismissed">Dismissed</option>
+          </select>
+        </div>
+
+        <!-- Two-Party Profile Cards: Reporter & Reported User (PRD 5.3) -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
+          <!-- Reporter Card -->
+          <div id="report-card-reporter" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px;"></div>
+
+          <!-- Reported User Card -->
+          <div id="report-card-reported" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px;"></div>
+        </div>
+
+        <!-- Full Report Content -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px;">
+          <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 8px;">Full Report Description / Evidence</div>
+          <p id="report-drawer-content" style="font-size: 0.88rem; color: var(--text-main); line-height: 1.5; white-space: pre-wrap;"></p>
+        </div>
+
+        <!-- Associated Listing Preview if any -->
+        <div id="report-box-listing" style="margin-bottom: 20px; display: none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. TRANSACTION DETAILS MODAL (PRD 3.3) -->
+  <div id="modal-transaction-details" class="modal-overlay">
+    <div class="modal-dialog">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <h3 id="tx-modal-id" style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Transaction ID</h3>
+            <span id="tx-modal-statusbadge" class="status-badge">Completed</span>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+            <span id="tx-modal-type"></span> • <span id="tx-modal-date"></span>
+          </div>
+        </div>
+        <button class="btn btn-icon btn-outline btn-close-modal">✕</button>
+      </div>
+
+      <!-- Item Card -->
+      <div id="tx-card-item" style="margin-bottom: 16px;"></div>
+
+      <!-- Financial Breakdown (Gross, 4.9% Fee, Net) -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+        <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 8px;">Financial Settlement Breakdown</div>
+        <div style="display: grid; gap: 6px; font-size: 0.84rem;">
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--text-muted);">Gross Transaction Value:</span>
+            <span id="tx-modal-amount" class="price-tag">₦0</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span style="color: var(--kova-emerald); font-weight: 600;">Kova Platform Commission:</span>
+            <span id="tx-modal-fee" class="fee-tag">₦0</span>
+          </div>
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 6px; margin-top: 4px; display: flex; justify-content: space-between;">
+            <span style="color: var(--text-main); font-weight: 700;">Net Seller Payout:</span>
+            <span id="tx-modal-net" style="font-weight: 700; color: var(--text-main);">₦0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buyer & Seller Profiles -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+        <div id="tx-card-buyer" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;"></div>
+        <div id="tx-card-seller" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;"></div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-secondary btn-close-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. UNIVERSAL GLOBAL SEARCH MODAL (PRD 7) -->
+  <div id="modal-global-search" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 620px; padding: 0; overflow: hidden;">
+      <div style="padding: 16px 20px; border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; gap: 12px; background: var(--bg-card);">
+        <span style="font-size: 1.1rem; color: var(--text-subtle);">🔍</span>
+        <input type="text" id="global-search-input" placeholder="Type name, email, item, transaction ID, or report..." style="flex: 1; font-size: 0.95rem; color: var(--text-main);" />
+        <kbd style="font-size: 0.7rem; background: #f1f5f9; border: 1px solid var(--border-subtle); padding: 2px 6px; border-radius: var(--radius-sm); color: var(--text-muted);">ESC</kbd>
+        <button class="btn btn-icon btn-outline btn-close-modal" style="width: 28px; height: 28px;">✕</button>
+      </div>
+      <div id="global-search-results" style="max-height: 400px; overflow-y: auto;"></div>
+    </div>
+  </div>
+
+  <!-- 6. PLATFORM FEE SETTINGS MODAL (PRD 15 & 23) -->
+  <div id="modal-fee-settings" class="modal-overlay">
+    <div class="modal-dialog" style="max-width: 440px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-main);">Platform Transaction Fee</h3>
+        <button class="btn btn-icon btn-outline btn-close-modal">✕</button>
+      </div>
+
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4;">
+        Configure the platform commission percentage automatically calculated on all completed marketplace transactions. Standard rate is <strong>4.9%</strong>.
+      </p>
+
+      <form id="form-fee-settings" style="display: grid; gap: 14px;">
+        <div>
+          <label style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">Transaction Fee Rate (%)</label>
+          <div style="position: relative;">
+            <input type="number" id="fee-rate-input" step="0.1" min="0" max="50" class="search-input" style="padding-left: 14px;" value="4.9" required />
+            <span style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-subtle); font-weight: 700;">%</span>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px;">
+          <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Update Fee</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN AUTHENTICATION / LOGIN VIEW -->
+  <div id="login-container" class="login-overlay"></div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/chart.js"></script>
+  <script src="js/components/subscriptionModal.js"></script>
+  <script src="js/components/userModal.js"></script>
+  <script src="js/components/reportModal.js"></script>
+  <script src="js/components/transactionModal.js"></script>
+  <script src="js/components/globalSearch.js"></script>
+  <script src="js/views/loginView.js"></script>
+  <script src="js/views/dashboardView.js"></script>
+  <script src="js/views/usersView.js"></script>
+  <script src="js/views/reportsView.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
