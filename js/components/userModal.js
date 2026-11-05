@@ -387,7 +387,7 @@ class UserModal {
         <div class="empty-state">
           <div class="empty-state-icon">🛡️</div>
           <h3>Clean Record</h3>
-          <p>No user reports or complaints have been submitted against this user.</p>
+          <p>No user, product, or listing reports have been submitted against this user.</p>
         </div>
       `;
       return;
@@ -396,20 +396,33 @@ class UserModal {
     let html = `<div style="display: grid; gap: 12px;">`;
 
     reports.forEach(r => {
+      const targetType = r.targetType || 'user';
+      const targetLabel = targetType === 'product' ? '🛍️ Product Report' : (targetType === 'property' ? '🏢 Property Listing Report' : '👤 User Report');
+      const reportTypeTitle = r.reportType || r.category;
+      const descriptionText = r.description || r.content;
+
       html += `
         <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px;">
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span style="font-weight: 700; color: #dc2626; font-size: 0.82rem;">${r.id}</span>
               <span class="status-badge status-${r.status.toLowerCase()}">${r.status}</span>
-              <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">Category: ${r.category}</span>
+              <span style="background: #ffffff; border: 1px solid #fecaca; color: #991b1b; padding: 2px 8px; border-radius: 999px; font-size: 0.7rem; font-weight: 700;">${targetLabel}</span>
             </div>
             <span style="font-size: 0.72rem; color: var(--text-subtle);">${r.date}</span>
           </div>
-          <p style="font-size: 0.84rem; color: var(--text-main); line-height: 1.4;">${r.content}</p>
-          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--border-subtle); padding-top: 8px; margin-top: 4px;">
-            <span style="font-size: 0.75rem; color: var(--text-muted);">Reported by: <strong style="color: var(--text-main);">${r.reporterName}</strong></span>
-            <button class="btn btn-secondary btn-sm" onclick="window.reportModal.open('${r.id}')">Open Report Details</button>
+          <div style="background: #ffffff; border: 1px solid #fecaca; border-radius: 6px; padding: 8px 10px;">
+            <div style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #64748b;">1. Report Type (${r.category})</div>
+            <div style="font-weight: 700; font-size: 0.84rem; color: #0f172a; margin-bottom: 6px;">${reportTypeTitle}</div>
+            <div style="font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: #64748b;">2. Report Description</div>
+            <p style="font-size: 0.82rem; color: #1e293b; line-height: 1.4; margin: 2px 0 0 0;">${descriptionText}</p>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; border-top: 1px solid #fecaca; padding-top: 8px; margin-top: 4px;">
+            <span style="font-size: 0.75rem; color: #334155;">Reported by: <strong style="color: #0f172a;">${r.reporterName}</strong></span>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              ${r.transactionId ? `<button class="btn btn-outline btn-sm" onclick="window.transactionModal.open('${r.transactionId}')">🧾 View Invoice</button>` : ''}
+              <button class="btn btn-secondary btn-sm" onclick="window.reportModal.open('${r.id}')">Open Report Details</button>
+            </div>
           </div>
         </div>
       `;

@@ -1159,15 +1159,19 @@ const KOVA_DATA = {
     }
   ],
 
-  // 6. User and Listing Reports
+  // 6. User, Product, and Property Listing Reports
   reports: [
     {
       id: 'REP-5001',
       reporterId: 'USR-1019', // Ngozi Okafor
       reportedUserId: 'USR-1018', // PrimeStyle Shoes & Bags
+      targetType: 'product',
       listingId: 'LST-2021',
+      transactionId: 'TRX-8025',
+      reportType: 'Counterfeit / Fake Product',
       category: 'Fake listing',
-      content: 'Seller listed counterfeit items falsely labeled as authentic luxury leather. Delivered substandard goods and blocked buyer on phone calls.',
+      description: 'Seller listed counterfeit designer handbag falsely labeled as authentic luxury calfskin leather. Delivered substandard plastic replica and blocked buyer on phone calls.',
+      content: 'Seller listed counterfeit designer handbag falsely labeled as authentic luxury calfskin leather. Delivered substandard plastic replica and blocked buyer on phone calls.',
       status: 'Under Review',
       date: '2026-06-22 17:30'
     },
@@ -1175,9 +1179,13 @@ const KOVA_DATA = {
       id: 'REP-5002',
       reporterId: 'USR-1011', // Tunde Bakare
       reportedUserId: 'USR-1018', // PrimeStyle Shoes & Bags
+      targetType: 'product',
       listingId: 'LST-2021',
+      transactionId: null,
+      reportType: 'Misleading Product Information',
       category: 'Misleading information',
-      content: 'Product specifications and brand origin are completely fabricated. Refused to honor return policy.',
+      description: 'Product specifications, photos, and brand origin on this handbag listing are completely fabricated. Vendor refused to honor return policy.',
+      content: 'Product specifications, photos, and brand origin on this handbag listing are completely fabricated. Vendor refused to honor return policy.',
       status: 'Under Review',
       date: '2026-06-24 10:15'
     },
@@ -1185,9 +1193,13 @@ const KOVA_DATA = {
       id: 'REP-5003',
       reporterId: 'USR-1012', // Amaka Obi
       reportedUserId: 'USR-1005', // Chidi Auto & Parts
-      listingId: 'LST-2012',
+      targetType: 'product',
+      listingId: 'LST-2013',
+      transactionId: 'TRX-8016',
+      reportType: 'Delayed Order Fulfillment',
       category: 'Other',
-      content: 'Delay in dispatching parts order by 10 business days without prior notification. Issue was subsequently resolved with vendor.',
+      description: 'Delay in dispatching Mercedes Benz W205 LED Headlight Assembly order by 10 business days without prior notification. Issue was subsequently resolved with vendor.',
+      content: 'Delay in dispatching Mercedes Benz W205 LED Headlight Assembly order by 10 business days without prior notification. Issue was subsequently resolved with vendor.',
       status: 'Resolved',
       date: '2026-05-14 11:20'
     },
@@ -1195,9 +1207,13 @@ const KOVA_DATA = {
       id: 'REP-5004',
       reporterId: 'USR-1014', // Emeka Nwosu
       reportedUserId: 'USR-1016', // SwiftDeliver Electronics
+      targetType: 'user',
       listingId: null,
+      transactionId: null,
+      reportType: 'Misleading Vendor Warranty',
       category: 'Misleading information',
-      content: 'Seller quoted 2-year manufacturer warranty on display but warranty card in package only covers 90 days.',
+      description: 'Vendor account advertises a 2-year official manufacturer warranty on their profile, but warranty card issued after purchase only covers 90 days.',
+      content: 'Vendor account advertises a 2-year official manufacturer warranty on their profile, but warranty card issued after purchase only covers 90 days.',
       status: 'New',
       date: '2026-09-12 14:05'
     },
@@ -1205,9 +1221,13 @@ const KOVA_DATA = {
       id: 'REP-5005',
       reporterId: 'USR-1013', // Zainab Ahmed
       reportedUserId: 'USR-1017', // Ikeja Apex Properties
-      listingId: 'LST-2020',
+      targetType: 'user',
+      listingId: null,
+      transactionId: null,
+      reportType: 'Harassment & Unprofessional Conduct',
       category: 'Harassment',
-      content: 'Agent representative called at odd night hours repeatedly after tenancy negotiation ended.',
+      description: 'Agent representative called repeatedly at odd night hours using aggressive language after our office lease negotiation ended.',
+      content: 'Agent representative called repeatedly at odd night hours using aggressive language after our office lease negotiation ended.',
       status: 'New',
       date: '2026-09-14 08:45'
     },
@@ -1215,11 +1235,43 @@ const KOVA_DATA = {
       id: 'REP-5006',
       reporterId: 'USR-1015', // Babatunde Adeleke
       reportedUserId: 'USR-1009', // Kariakoo Home
+      targetType: 'product',
       listingId: 'LST-2019',
+      transactionId: 'TRX-8021',
+      reportType: 'Damaged Item on Delivery',
       category: 'Other',
-      content: 'Delivery team arrived with minor dent on refrigerator side panel. Vendor provided compensatory accessory.',
+      description: 'Delivery team arrived with minor dent on the LG Inverter Refrigerator side panel. Vendor provided compensatory surge protector accessory.',
+      content: 'Delivery team arrived with minor dent on the LG Inverter Refrigerator side panel. Vendor provided compensatory surge protector accessory.',
       status: 'Dismissed',
       date: '2026-06-05 09:30'
+    },
+    {
+      id: 'REP-5007',
+      reporterId: 'USR-1012', // Amaka Obi
+      reportedUserId: 'USR-1010', // Mainland Realtors Hub
+      targetType: 'property',
+      listingId: 'LST-2020',
+      transactionId: 'TRX-8028',
+      reportType: 'Inaccurate Property Listing Details',
+      category: 'Fake listing',
+      description: 'The Allen Avenue Commercial Office Space listing states 24/7 backup generator included in service charge, but facility manager confirmed tenants must provide their own power.',
+      content: 'The Allen Avenue Commercial Office Space listing states 24/7 backup generator included in service charge, but facility manager confirmed tenants must provide their own power.',
+      status: 'New',
+      date: '2026-09-15 11:10'
+    },
+    {
+      id: 'REP-5008',
+      reporterId: 'USR-1014', // Emeka Nwosu
+      reportedUserId: 'USR-1006', // Yaba Student Lodges Ltd
+      targetType: 'property',
+      listingId: 'LST-2014',
+      transactionId: 'TRX-8007',
+      reportType: 'Unverified Utility Fee Surcharge',
+      category: 'Scam',
+      description: 'Property listing advertised all-inclusive water and waste disposal fees, but caretaker demanded an unreceipted cash surcharge upon key collection.',
+      content: 'Property listing advertised all-inclusive water and waste disposal fees, but caretaker demanded an unreceipted cash surcharge upon key collection.',
+      status: 'Under Review',
+      date: '2026-09-10 16:00'
     }
   ]
 };

@@ -300,6 +300,7 @@
         <div style="min-width: 0; flex: 1;">
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <h2 id="report-drawer-id" style="font-size: 1.15rem; font-weight: 800; color: #dc2626;">Report ID</h2>
+            <span id="report-drawer-targetbadge" class="type-badge">Target</span>
             <span id="report-drawer-statusbadge" class="status-badge">New</span>
           </div>
           <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
@@ -311,7 +312,7 @@
 
       <div class="drawer-body">
         <!-- Status Updater Control (PRD 5.4) -->
-        <div class="user-drawer-action-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+        <div class="user-drawer-action-card" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
           <div>
             <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle);">Case Status</div>
             <div style="font-size: 0.8rem; color: var(--text-muted);">Change moderation review state</div>
@@ -324,7 +325,26 @@
           </select>
         </div>
 
-        <!-- Two-Party Profile Cards: Reporter & Reported User (PRD 5.3) -->
+        <!-- CORE REPORT COMPONENTS: 1. Report Type & 2. Report Description -->
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px; display: grid; gap: 14px;">
+          <div style="border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+            <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-subtle); margin-bottom: 6px;">1. Report Type</div>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span id="report-drawer-type-title" style="font-size: 0.98rem; font-weight: 800; color: #b91c1c;">Report Type</span>
+              <span id="report-drawer-cat-pill" class="status-badge status-failed" style="text-transform: none;">Category</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-subtle); margin-bottom: 6px;">2. Report Description</div>
+            <p id="report-drawer-content" style="font-size: 0.88rem; color: var(--text-main); line-height: 1.55; white-space: pre-wrap; background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px;"></p>
+          </div>
+        </div>
+
+        <!-- Reported Product / Property Listing Preview (when a product or listing is reported) -->
+        <div id="report-box-listing" style="margin-bottom: 20px; display: none;"></div>
+
+        <!-- Both Parties Involved: Reporter & Reported User (PRD 5.3) -->
+        <div style="margin-bottom: 8px; font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-subtle);">Both Parties Involved</div>
         <div class="two-party-grid" style="margin-bottom: 20px;">
           <!-- Reporter Card -->
           <div id="report-card-reporter" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px;"></div>
@@ -333,14 +353,8 @@
           <div id="report-card-reported" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 14px;"></div>
         </div>
 
-        <!-- Full Report Content -->
-        <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 20px;">
-          <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-subtle); margin-bottom: 8px;">Full Report Description / Evidence</div>
-          <p id="report-drawer-content" style="font-size: 0.88rem; color: var(--text-main); line-height: 1.5; white-space: pre-wrap;"></p>
-        </div>
-
-        <!-- Associated Listing Preview if any -->
-        <div id="report-box-listing" style="margin-bottom: 20px; display: none;"></div>
+        <!-- Associated Transaction / Invoice between both parties if any -->
+        <div id="report-box-transaction" style="margin-bottom: 20px; display: none;"></div>
       </div>
     </div>
   </div>

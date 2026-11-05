@@ -321,6 +321,24 @@ class KovaApp {
     }
   }
 
+  // Activate or Deactivate Reported Product / Property Listing
+  setListingStatus(listingId, newStatus) {
+    const res = this.store.updateListingStatus(listingId, newStatus);
+    if (res.success) {
+      const toastType = newStatus === 'Inactive' ? 'info' : 'success';
+      this.showToast(res.message, toastType);
+
+      if (window.reportModal && window.reportModal.currentReportId) {
+        window.reportModal.open(window.reportModal.currentReportId);
+      }
+      if (window.userModal && window.userModal.currentUserId) {
+        window.userModal.open(window.userModal.currentUserId);
+      }
+    } else {
+      this.showToast(res.message, 'error');
+    }
+  }
+
   // Toast Notifications
   showToast(message, type = 'success') {
     if (!this.toastContainer) return;

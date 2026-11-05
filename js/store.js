@@ -30,6 +30,7 @@ class KovaStore {
       // Reports filters
       reportFilters: {
         search: '',
+        targetType: 'all',
         category: 'all',
         status: 'all'
       },
@@ -741,12 +742,25 @@ class KovaStore {
         const reporter = this.data.users.find(u => u.id === r.reporterId);
         const reportedUser = this.data.users.find(u => u.id === r.reportedUserId);
         const listing = r.listingId ? this.data.listings.find(l => l.id === r.listingId) : null;
+        const transaction = r.transactionId
+          ? this.data.transactions.find(t => t.id === r.transactionId)
+          : this.data.transactions.find(t =>
+              (t.buyerId === r.reporterId && t.sellerId === r.reportedUserId) ||
+              (r.listingId && t.listingId === r.listingId && t.buyerId === r.reporterId)
+            );
+        const targetType = r.targetType || (listing ? listing.listingType : 'user');
+        const reportType = r.reportType || r.category;
+        const description = r.description || r.content;
 
         return {
           ...r,
+          targetType,
+          reportType,
+          description,
           reporter,
           reportedUser,
-          listing
+          listing,
+          transaction
         };
       })
       .filter(r => {
@@ -756,14 +770,26 @@ class KovaStore {
           const match =
             r.id.toLowerCase().includes(q) ||
             r.category.toLowerCase().includes(q) ||
+            (r.reportType && r.reportType.toLowerCase().includes(q)) ||
+            (r.description && r.description.toLowerCase().includes(q)) ||
             r.content.toLowerCase().includes(q) ||
             (r.reporter && r.reporter.name.toLowerCase().includes(q)) ||
-            (r.reportedUser && r.reportedUser.name.toLowerCase().includes(q));
+            (r.reportedUser && r.reportedUser.name.toLowerCase().includes(q)) ||
+            (r.listing && r.listing.name.toLowerCase().includes(q));
           if (!match) return false;
         }
 
-        // Category filter
-        if (f.category !== 'all' && r.category.toLowerCase() !== f.category.toLowerCase()) {
+        // Target Type filter ('all' | 'user' | 'product' | 'property' | 'listing')
+        if (f.targetType && f.targetType !== 'all') {
+          if (f.targetType === 'listing') {
+            if (r.targetType !== 'product' && r.targetType !== 'property') return false;
+          } else if (r.targetType.toLowerCase() !== f.targetType.toLowerCase()) {
+            return false;
+          }
+        }
+
+        // Category / Report Type filter
+        if (f.category !== 'all' && r.category.toLowerCase() !== f.category.toLowerCase() && (!r.reportType || !r.reportType.toLowerCase().includes(f.category.toLowerCase()))) {
           return false;
         }
 
@@ -783,18 +809,45 @@ class KovaStore {
     const reporter = this.data.users.find(u => u.id === report.reporterId);
     const reportedUser = this.data.users.find(u => u.id === report.reportedUserId);
     const listing = report.listingId ? this.data.listings.find(l => l.id === report.listingId) : null;
+    const transaction = report.transactionId
+      ? this.data.transactions.find(t => t.id === report.transactionId)
+      : this.data.transactions.find(t =>
+          (t.buyerId === report.reporterId && t.sellerId === report.reportedUserId) ||
+          (report.listingId && t.listingId === report.listingId && t.buyerId === report.reporterId)
+        );
+    const targetType = report.targetType || (listing ? listing.listingType : 'user');
+    const reportType = report.reportType || report.category;
+    const description = report.description || report.content;
 
     // Reports count against reported user
     const totalReportsAgainstUser = this.data.reports.filter(r => r.reportedUserId === report.reportedUserId).length;
 
     return {
-      report,
+      report: {
+        ...report,
+        targetType,
+        reportType,
+        description
+      },
       reporter,
       reportedUser: {
         ...reportedUser,
         totalReportsCount: totalReportsAgainstUser
       },
-      listing
+      listing,
+      transaction
+    };
+  }
+
+  updateListingStatus(listingId, newStatus) {
+    const listing = this.data.listings.find(l => l.id === listingId);
+    if (!listing) return { success: false, message: 'Listing not found' };
+
+    listing.status = newStatus;
+    this.notify();
+    return {
+      success: true,
+      message: `Listing "${listing.name}" (${listing.id}) status updated to ${newStatus}.`
     };
   }
 
@@ -948,6 +1001,7 @@ class KovaStore {
   resetReportFilters() {
     this.state.reportFilters = {
       search: '',
+      targetType: 'all',
       category: 'all',
       status: 'all'
     };
